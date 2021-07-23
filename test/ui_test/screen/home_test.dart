@@ -44,7 +44,7 @@ void main() {
 
     group("Home page test", () {
     testWidgets('Testing search field', (WidgetTester tester) async {
-      List <NewsModel> newsModel = await MockApi().getNews();
+
       await tester.pumpWidget(MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => NewsState()),

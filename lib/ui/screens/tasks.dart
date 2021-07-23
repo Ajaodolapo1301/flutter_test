@@ -80,7 +80,6 @@ class __TaskState extends State<_Task> {
 
     }
 
-
     //TODO implement toggle complete to firestore
 
 
