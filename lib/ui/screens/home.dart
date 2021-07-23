@@ -25,14 +25,24 @@ class _HomePageState extends State<HomePage>  with AfterLayoutMixin<HomePage>{
 Box box;
   List filteredList = <NewsModel>[];
 
-  List<NewsModel> news =  [];
+  // List<NewsModel> news =  [];
   @override
   void initState() {
 
     super.initState();
   }
 
-
+    onSearch(v){
+      if(v.isNotEmpty){
+        setState(() {
+          filteredList = newsState.news.where((news) => news.title.toString().toLowerCase().contains(v)).toList();
+        });
+      }else{
+        setState(() {
+          filteredList =  newsState.news;
+        });
+      }
+    }
 
 
   @override
@@ -47,7 +57,7 @@ Box box;
     newsState = Provider.of<NewsState>(context, );
       if(filteredList.isEmpty){
         setState(() {
-          filteredList = news;
+          filteredList = newsState.news;
         });
       }
     return Scaffold(
@@ -75,19 +85,7 @@ Box box;
             CupertinoSearchTextField(
               key: ValueKey("searchField"),
               controller: _searchTextField,
-              onChanged: (v){
-                    if(v.isNotEmpty){
-                      setState(() {
-                        filteredList = news.where((news) => news.title.toString().toLowerCase().contains(v)).toList();
-                      });
-                    }else{
-                      setState(() {
-                        filteredList =  news;
-                      });
-                    }
-
-
-              }
+              onChanged: onSearch
             ),
 SizedBox(height: 15,),
       Expanded(
@@ -130,12 +128,14 @@ try{
 
   @override
   void afterFirstLayout(BuildContext context) {
-    box = Hive.box("news");
+
     getNews();
-    setState(() {
-      news =  box.get("news").cast<NewsModel>();
-    });
- print(news);
+ //    setState(() {
+ //      box = Hive.box("news");
+ //      var l =  ( box.get("news"));
+ //      news = l.cast<NewsModel>();
+ //    });
+ // print(news);
 
   }
 

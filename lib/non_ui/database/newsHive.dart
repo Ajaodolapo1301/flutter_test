@@ -4,8 +4,8 @@ import 'package:hive/hive.dart';
 import 'package:morphosis_flutter_demo/non_ui/modal/news.dart';
 
 abstract class HiveNewsRepoAbstract {
-  Future<void> getNewsCached(List <NewsModel> news);
-
+  Future<void> cacheNews(List <NewsModel> news);
+  Future<void> getCachedNews();
 }
 
 
@@ -16,7 +16,7 @@ class NewsRepo implements HiveNewsRepoAbstract {
   NewsRepo({@required this.hive});
 
   @override
-  Future<void> getNewsCached(List <NewsModel> news) async {
+  Future<void> cacheNews(List <NewsModel> news) async {
 
     try {
       final newsBox = await _openBox("news");
@@ -27,6 +27,22 @@ class NewsRepo implements HiveNewsRepoAbstract {
     }
   }
 
+
+  Future<List<NewsModel>> getCachedNews() async {
+
+    try {
+      final newsBox = await _openBox("news");
+      // if (newsBox.containsKey("news")) {
+      print("got here");
+        print(await newsBox.get("news"));
+        return await newsBox.get("news");
+
+      // }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
 
 
   Future<Box> _openBox(String type) async {

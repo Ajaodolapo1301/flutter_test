@@ -33,7 +33,7 @@ void main() {
           //arrange
           when(mockHiveInterface.openBox(any)).thenAnswer((_) async => mockHiveBox);
           //act
-          await newsRepo.getNewsCached(newState.news);
+          await newsRepo.cacheNews(newState.news);
           //assert
           verify(mockHiveBox.put('news', newState.news));
           verify(mockHiveInterface.openBox("news"));

@@ -25,13 +25,13 @@ NewsRepo newsRepo = NewsRepo(hive: Hive);
 
 
 
-  List _filteredList = <NewsModel>[];
-  List get filteredList => _filteredList;
-
-  set filteredList(List<NewsModel> news1) {
-    _news = news1;
-    notifyListeners();
-  }
+  // List _filteredList = <NewsModel>[];
+  // List get filteredList => _filteredList;
+  //
+  // set filteredList(List<NewsModel> news1) {
+  //   _news = news1;
+  //   notifyListeners();
+  // }
 
 
 
@@ -65,12 +65,14 @@ NewsRepo newsRepo = NewsRepo(hive: Hive);
     try{
       setBusy(true);
    var   newss = await service.getNews();
-     newsRepo.getNewsCached(newss);
+    await newsRepo.cacheNews(newss);
+
+  news =  await  newsRepo.getCachedNews();
       setBusy(false);
     }catch(e){
 
     }
-
+notifyListeners();
   }
 
 
