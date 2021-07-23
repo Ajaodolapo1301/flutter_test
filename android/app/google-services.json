@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "510539404146",
+    "project_id": "morphos-d9ddf",
+    "storage_bucket": "morphos-d9ddf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510539404146:android:5948c68d127602a9d3c3eb",
+        "android_client_info": {
+          "package_name": "com.demo.morphosis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510539404146-vsjrreovhhsa5a4v66hmvdlbhj55o6m0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCpKtE5R96QnMIvmYSwQK9zelusDXJ0GQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510539404146-vsjrreovhhsa5a4v66hmvdlbhj55o6m0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
