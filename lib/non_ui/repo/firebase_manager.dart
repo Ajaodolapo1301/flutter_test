@@ -55,12 +55,12 @@ class FirebaseManager {
             .where((mappedItem) => mappedItem.title != null)
             .toList();
 
-
+          print("jajaja$tasks");
         _tasksController.add(tasks);
       }
     });
 
-    // Return the stream underlying our _postsController.
+
     return _tasksController.stream;
   }
 

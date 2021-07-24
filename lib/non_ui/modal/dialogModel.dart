@@ -1,17 +1,20 @@
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class DialogRequest {
   final String title;
   final String description;
   final String buttonTitle;
   final String cancelTitle;
+  final Color  color;
 
   DialogRequest(
       {@required this.title,
         @required this.description,
         @required this.buttonTitle,
-        this.cancelTitle});
+        this.cancelTitle, this.color
+      });
 }
 
 class DialogResponse {

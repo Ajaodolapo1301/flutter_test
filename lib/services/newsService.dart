@@ -28,7 +28,7 @@ class NewsImpl implements AbstractNews {
 
     try {
       var response = await client.get(url);
-      print(response.body);
+
       int statusCode = response.statusCode;
         if(statusCode == 200){
           (jsonDecode(response.body)['articles'] as List).forEach((dat) {

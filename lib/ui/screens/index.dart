@@ -40,6 +40,7 @@ class _IndexPageState extends State<IndexPage> with AfterLayoutMixin<IndexPage> 
     ];
 
     return Scaffold(
+
       body: children [_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,

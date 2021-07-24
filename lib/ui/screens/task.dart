@@ -35,7 +35,7 @@ class __TaskFormState extends State<_TaskForm> {
   static const double _padding = 16;
 
   __TaskFormState(this.task);
-
+  final _formKey = GlobalKey<FormState>();
   Task task;
   TextEditingController _titleController;
   TextEditingController _descriptionController;
@@ -67,52 +67,75 @@ class __TaskFormState extends State<_TaskForm> {
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.all(_padding),
-        child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Title',
-              ),
-            ),
-            SizedBox(height: _padding),
-            TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Description',
-              ),
-              minLines: 5,
-              maxLines: 10,
-            ),
-            SizedBox(height: _padding),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Completed ?'),
-                CupertinoSwitch(
-                  value: task.isCompleted,
-                  onChanged: (_) {
-                    setState(() {
-                      task.toggleComplete();
-                    });
-                  },
+        child: Form(
+          key: _formKey ,
+          child: Column(
+            children: [
+              TextFormField(
+                validator: (v){
+                if(v.isEmpty){
+                  return "Field required";
+                }
+
+                return null;
+              },
+                controller: _titleController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Title',
                 ),
-              ],
-            ),
-            Spacer(),
-            ElevatedButton(
-              onPressed: () => _save(context),
-              child: Container(
-                width: double.infinity,
-                child: Center(
-                    child: createTaskViewModel.busy
-                        ? MyUtils.cupertinoDark(context: context)
-                        : Text(task.isNew ? 'Create' : 'Update')),
               ),
-            )
-          ],
+              SizedBox(height: _padding),
+              TextFormField(
+                validator: (v){
+                  if(v.isEmpty){
+                    return "Field required";
+                  }
+
+                  return null;
+                },
+                controller: _descriptionController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Description',
+                ),
+                minLines: 5,
+                maxLines: 10,
+              ),
+              SizedBox(height: _padding),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Completed ?'),
+                  CupertinoSwitch(
+                    value: task.isCompleted,
+                    onChanged: (_) {
+                      setState(() {
+                        task.toggleComplete();
+                      });
+                    },
+                  ),
+                ],
+              ),
+              Spacer(),
+              ElevatedButton(
+                onPressed: () {
+                  if(_formKey.currentState.validate()){
+                    _save(context);
+                  }else{
+                    MyUtils.kShowSnackBar(msg: "Fill all forms", color: Colors.red, ctx: context);
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  child: Center(
+                      child: createTaskViewModel.busy
+                          ? MyUtils.cupertinoDark(context: context)
+                          : Text(task.isNew ? 'Create' : 'Update')),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

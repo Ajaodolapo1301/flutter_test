@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:morphosis_flutter_demo/non_ui/modal/task.dart';
 import 'package:morphosis_flutter_demo/non_ui/repo/firebase_manager.dart';
 import 'package:morphosis_flutter_demo/services/dialogServices.dart';
@@ -60,6 +61,8 @@ class CreateTaskViewModel extends BaseModel {
 
     if (result is String) {
       await _dialogService.showSnack(
+
+        color: Colors.red,
         description: "An error occured",
       );
     } else {

@@ -24,43 +24,6 @@ NewsRepo newsRepo = NewsRepo(hive: Hive);
   }
 
 
-
-  // List _filteredList = <NewsModel>[];
-  // List get filteredList => _filteredList;
-  //
-  // set filteredList(List<NewsModel> news1) {
-  //   _news = news1;
-  //   notifyListeners();
-  // }
-
-
-
-
-
-  // addItem(List <NewsModel> item) async {
-  //
-  //   box.put("news", item);
-  // }
-
-  // onSearch(v) async {
-  //   if (v != null) {
-  //     filteredList = news.where((news) => news.title.toString().toLowerCase().contains(v))
-  //         .toList();
-  //   }else if (filteredList.isEmpty){
-  //     filteredList = news;
-  //   }
-
-
-
-  //   notifyListeners();
-  // }
-
-
-
-
-
-
-
   Future<void> getNews() async{
     try{
       setBusy(true);

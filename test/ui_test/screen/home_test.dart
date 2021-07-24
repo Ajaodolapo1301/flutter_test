@@ -4,8 +4,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
 import 'package:morphosis_flutter_demo/locator.dart';
+import 'package:morphosis_flutter_demo/non_ui/database/newsHive.dart';
 import 'package:morphosis_flutter_demo/non_ui/modal/news.dart';
 import 'package:morphosis_flutter_demo/ui/screens/home.dart';
 
@@ -15,7 +17,7 @@ import 'package:provider/provider.dart';
 import '../../viewModel/newsViewModel_test.dart';
 
 
-// class MockMyViewModel extends Mock implements NewsState{}
+class MockMyViewModel extends Mock implements NewsRepo{}
 
 
 
@@ -24,7 +26,15 @@ void main() {
   setupLocator();
   var newState = locator<NewsState>();
   newState.service = MockApi();
+  MockHiveInterface mockHiveInterface;
+  MockHiveBox mockHiveBox;
+  NewsRepo newsRepo;
 
+  setUp(() {
+    mockHiveInterface = MockHiveInterface();
+    mockHiveBox = MockHiveBox();
+    newsRepo = NewsRepo(hive: mockHiveInterface);
+  });
 
   Widget createWidgetForTesting({Widget child}) {
     return MaterialApp(
@@ -33,6 +43,8 @@ void main() {
   }
 
   void _verifyAllCarDetails(List<NewsModel> newsList, WidgetTester tester) async {
+    when(mockHiveInterface.openBox("news")).thenAnswer((_) async => mockHiveBox);
+
     for (var news in newsList) {
       final newsFindr = find.text(news.title);
       await tester.ensureVisible(newsFindr);
@@ -61,7 +73,7 @@ void main() {
       await tester.enterText(textField, 'Flutter Devs');
         // expect(find.byType(CupertinoActivityIndicator), findsOneWidget);
       expect(find.text('Flutter Devs'), findsOneWidget);
-
+    print(newState.news);
 
 
     });
@@ -77,7 +89,7 @@ void main() {
               builder: (_) => createWidgetForTesting(child: HomePage()),
             ),
           ));
-  _verifyAllCarDetails(newState.news, tester);
+  _verifyAllCarDetails([NewsModel()], tester);
     });
 
   });

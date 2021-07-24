@@ -30,19 +30,21 @@ class DialogService {
     String title,
     String description,
     String buttonTitle = 'Ok',
+    Color color
   }) {
     _dialogCompleter = Completer<DialogResponse>();
     _showDialogListener(DialogRequest(
       title: title,
       description: description,
       buttonTitle: buttonTitle,
+
     ));
     return _dialogCompleter.future;
   }
 
 
   Future<DialogResponse> showSnack({
-
+      Color color,
     String description,
 
   }) {
@@ -50,6 +52,7 @@ class DialogService {
     _showSnackListener(DialogRequest(
     title: "",
       description: description,
+      color: color
 
     ));
     return _dialogCompleter.future;

@@ -65,7 +65,11 @@ class __TaskState extends State<_Task> {
   CreateTaskViewModel createTaskViewModel;
   void _delete() async{
     //TODO implement delete to firestore
-      await taskViewModel.deletePost(widget.index);
+
+
+       taskViewModel.deletePost(widget.index).then((value){
+         taskViewModel.tasks.removeAt(widget.index);
+       });
 
   }
 

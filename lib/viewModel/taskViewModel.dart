@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:morphosis_flutter_demo/constants/constant.dart';
 import 'package:morphosis_flutter_demo/non_ui/modal/task.dart';
 import 'package:morphosis_flutter_demo/non_ui/repo/firebase_manager.dart';
@@ -22,15 +23,17 @@ class TaskViewModel extends BaseModel {
 
 
   void listenToPosts() {
-    print("bh");
     setBusy(true);
     FirebaseManager.shared.listenToTasktRealTime().listen((taskData) {
-
+      print("uuuu$taskData");
       List<Task> updatedTasks = taskData;
       if (updatedTasks != null && updatedTasks.length > 0) {
         _task = updatedTasks;
-
+          print("_dj$tasks");
         notifyListeners();
+      }else{
+
+
       }
 
       setBusy(false);
@@ -40,7 +43,7 @@ class TaskViewModel extends BaseModel {
   Future deletePost(int index) async {
     var dialogResponse = await _dialogService.showConfirmationDialog(
       title: 'Are you sure?',
-      description: 'Do you really want to delete the post?',
+      description: 'Do you really want to delete the task?',
       confirmationTitle: 'Yes',
       cancelTitle: 'No',
     );
@@ -50,8 +53,9 @@ class TaskViewModel extends BaseModel {
 
       await FirebaseManager.shared.deleteTask(_task[index].id);
 
+
       setBusy(false);
-      await _dialogService.showSnack(
+      await _dialogService.showSnack(color: Colors.green,
         description: 'Deleted',
       );
     }
