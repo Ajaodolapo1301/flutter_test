@@ -4,7 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:hive/hive.dart';
 import 'package:http/http.dart';
+import 'package:morphosis_flutter_demo/non_ui/database/newsHive.dart';
 import 'package:morphosis_flutter_demo/non_ui/modal/news.dart';
 
 abstract class AbstractNews {
@@ -18,7 +20,7 @@ abstract class AbstractNews {
 
 class NewsImpl implements AbstractNews {
   Client client = Client();
-
+NewsRepo newsRepo = NewsRepo(hive: Hive);
   @override
   Future<List<NewsModel>> getNews() async {
 
@@ -39,6 +41,7 @@ class NewsImpl implements AbstractNews {
     } catch (error) {
 
     }
+    await newsRepo.cacheNews(newsModel);
     return  newsModel;
   }
 

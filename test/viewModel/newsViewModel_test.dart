@@ -34,7 +34,7 @@ class MockHiveBox extends Mock implements Box {}
 void main() {
   setupLocator();
   var newState = locator<NewsState>();
-  newState.service = MockApi();
+  // newState.service = MockApi();
   MockHiveInterface mockHiveInterface;
   MockHiveBox mockHiveBox;
   NewsRepo newsRepo;
@@ -49,7 +49,7 @@ void main() {
       when(mockHiveInterface.openBox(any)).thenAnswer((_) async => mockHiveBox);
 
 
-      await newState.getNews();
+      await   newsRepo.getCachedNews();
       expect(newState.news.length, 1);
       expect(
           newState.news[0].title, 'my title');

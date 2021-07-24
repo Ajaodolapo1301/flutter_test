@@ -71,26 +71,13 @@ void main() {
 
       expect(textField, findsOneWidget);
       await tester.enterText(textField, 'Flutter Devs');
-        // expect(find.byType(CupertinoActivityIndicator), findsOneWidget);
+
       expect(find.text('Flutter Devs'), findsOneWidget);
-    print(newState.news);
+
 
 
     });
-    testWidgets("Check for  cupertinoWidget", (WidgetTester tester) async{
-      await newState.getNews();
-      await tester.pumpWidget(
-          MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (_) => NewsState()),
 
-            ],
-            child: Builder(
-              builder: (_) => createWidgetForTesting(child: HomePage()),
-            ),
-          ));
-  _verifyAllCarDetails([NewsModel()], tester);
-    });
 
   });
 }

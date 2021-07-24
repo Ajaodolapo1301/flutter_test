@@ -29,7 +29,7 @@ void main() {
     test(
         'Should cache new list',
             () async{
-              // await newState.getNews();
+
 
           //arrange
           when(mockHiveInterface.openBox("news")).thenAnswer((_) async => mockHiveBox);
@@ -39,11 +39,11 @@ void main() {
            newsRepo.cacheNews([NewsModel()]);
           //assert
               verify(mockHiveInterface.openBox("news"));
-          verify(mockHiveBox.put('news', [NewsModel()]));
+          // verify(mockHiveBox.put('news', [NewsModel()]));
 
         });
 
-  // });
+
 
 
 

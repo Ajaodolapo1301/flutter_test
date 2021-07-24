@@ -27,14 +27,15 @@ NewsRepo newsRepo = NewsRepo(hive: Hive);
   Future<void> getNews() async{
     try{
       setBusy(true);
-   var   newss = await service.getNews();
-    await newsRepo.cacheNews(newss);
+ await service.getNews();
+
 
   news =  await  newsRepo.getCachedNews();
       setBusy(false);
     }catch(e){
 
     }
+
 notifyListeners();
   }
 
